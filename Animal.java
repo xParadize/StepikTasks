@@ -1,21 +1,3 @@
-/* Опишите класс Animal. У класса Animal должны быть свойства:
-
-type - тип животного (String)
-name - имя животного (String)
-age - возраст животного (int)
-weight - вес животного (double)
-isFly - ответ на вопрос, умеет ли это животное летать? (boolean)
-isWalk - ответ на вопрос, умеет ли это животное ходить? (boolean)
-isSwim -  ответ на вопрос, умеет ли это животное плавать? (boolean)
-У животного должны быть методы:
-
-display  - выводит информацию о животном в формате: "Тип: <Тип животного>, Имя: <Имя животного>, Возраст: <Возраст животного>, Вес: <Вес животного>, Умеет летать: <Да/Нет>, Умеет ходить: <Да/Нет>, Умеет плавать: <Да/Нет>."
-rename(String) - принимает новое имя животного
-holiday(int) - принимает на вход число праздничных дней. Увеличивает массу животного на 0.1 за каждый праздничный день.
-
-*/
-
-
 public class Animal {
 
     String type, name;
@@ -31,6 +13,17 @@ public class Animal {
         this.isFly = isFly;
         this.isWalk = isWalk;
         this.isSwim = isSwim;
+    }
+
+    public Animal(String type, String name) {
+        this.type = type;
+        this.name = name;
+    }
+
+    public Animal(String type, int age) {
+        this.type = type;
+        this.age = age;
+        this.name = "No Name";
     }
 
     public void holiday(int day) {
@@ -55,16 +48,24 @@ public class Animal {
 
 class Main{
     public static void main(String[] args) {
-        Animal tiger = new Animal("тигр", "Артём", 15, 300.6, true, true, false);
-        tiger.display();
-        tiger.rename();
+        Animal tiger = new Animal("тигр", "Артём");
+        tiger.age = 15;
+        tiger.weight = 300.6;
+        tiger.isSwim = true;
+        tiger.isWalk = true;
+        tiger.isFly = false;
         tiger.display();
 
-        System.out.println();
+        Animal sparrow = new Animal("воробей", 5);
+        sparrow.weight = 2;
+        sparrow.isSwim = false;
+        sparrow.isWalk = true;
+        sparrow.isFly = true;
+        sparrow.display();
 
-        Animal sparrow = new Animal("воробей", "Капитан Джек", 3, 2, false, true, true);
-        sparrow.display();
-        sparrow.holiday(2);
-        sparrow.display();
+        Animal duck = new Animal("Утка", "Утя", 3, 5.8, true, true, true);
+        duck.holiday(5);
+        duck.rename("Утя-Утя");
+        duck.display();
     }
 }
