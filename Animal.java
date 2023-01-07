@@ -37,8 +37,8 @@ public class Animal {
         System.out.println("Животное поправилось на " + (weight += day * 0.1) + " килограмм за " + day + "дня(-ей)");
     }
 
-    public void rename() {
-        String newName = name;
+    public void rename(String newName) {
+        name = newName;
         System.out.println("Теперь нашего друга зовут " + newName);
     }
 
