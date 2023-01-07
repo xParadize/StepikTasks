@@ -21,6 +21,45 @@ holiday(int) - принимает на вход число праздничны�
 
 Добавьте инкапсуляцию в класс Animal. Для каждого свойства в классе Animal должны быть свои методы get/set (для булевых значений не get, a is).
 
+Перегрузите метод holiday() в классе Animal (из предыдущего урока) таким образом:
+
+holiday() - увеличивает массу животного на 0.1
+holiday(double m) - увеличивает массу животного на m
+holiday(double m, int n) - n раз увеличивает массу животного на m
+
+Создайте три класса - наследника от класса Animal (из предыдущего урока): Bird, Fish и Insect.
+
+Класс Bird:
+По умолчанию будем считать, что все птицы умеют летать.
+
+У птиц должны быть новые свойства: 
+
+area - зона обитания
+winterFly - ответ на вопрос, улетает ли она зимовать
+Добавьте птицам метод chirik_chirik, который выводит на экран строку "Chirik-Chirik".
+
+Класс Fish:
+Все рыбы должны уметь плавать по умолчанию.
+
+У рыб должны быть новые свойства: 
+
+squama - тип чешуи
+upStreamSwim - умеет ли плавать против течения
+Добавьте рыбам метод bul_bul, который выводит на экран строку "Bul-bul".
+
+Класс Insect:
+Все насекомые должны уметь ходить по умолчанию.
+
+У насекомых должны быть новые свойства: 
+
+wingCount - количество крыльев
+likeJesus - умеет ли ходить по воде
+Добавьте насекомым метод ggggg, который выводит на экран строку "Ggggg".
+
+Переопределите у созданных вами классов наследников (Bird, Fish и Insect) метод display. 
+Перед выводом стандартной информации добавьте в начало вывода фразу "I am <название класса>".
+Так же добавьте в метод display информацию о новых свойствах этого класса. 
+
 */
 
 public class Animal {
@@ -38,6 +77,10 @@ public class Animal {
         this.isFly = isFly;
         this.isWalk = isWalk;
         this.isSwim = isSwim;
+    }
+
+    public Animal() {
+
     }
 
     public String getType() {
@@ -107,8 +150,20 @@ public class Animal {
         this.name = "No Name";
     }
 
+    public void holiday() {
+        weight += 0.1;
+    }
+
     public void holiday(int day) {
-        System.out.println("Животное поправилось на " + (weight += day * 0.1) + " килограмм за " + day + "дня(-ей)");
+        weight += day * 0.1;
+    }
+
+    public void holiday(double m) {
+        weight += m;
+    }
+
+    public void holiday(double m, int n) {
+        weight += (m * n);
     }
 
     public void rename(String newName) {
@@ -126,27 +181,191 @@ public class Animal {
                 + "Умеет плавать? " + (isSwim ? "Да" : "Нет"));
     }
 }
+ 
+
+public class Bird extends Animal {
+
+    {
+        isFly (true);
+        type = "Птица";
+    }
+
+    String area;
+    boolean winterFly;
+
+    public String getArea() {
+        return "Место обитания: " + area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public boolean isWinterFly() {
+        return winterFly;
+    }
+
+    public void setWinterFly(boolean winterFly) {
+        this.winterFly = winterFly;
+    }
+
+    public Bird() {
+        super();
+    }
+
+    public void chirik_chirik() {
+        System.out.println("Chirik-Chirik");
+    }
+
+    @Override
+    public void display() {
+        System.out.println("I am " + this.getClass().getSimpleName() + " and I live in " + area + ".\n"
+                + "Some people say, that I need overwintering - it's " + isWinterFly() + ".");
+        System.out.println("Тип животного: " + type + ", "
+                + "Имя животного: " + name + ", "
+                + "Возраст животного: " + age + ", "
+                + "Вес животного: " + weight + ", "
+                + "Умеет летать? " + (isFly ? "Да" : "Нет") + ", "
+                + "Умеет ходить? " + (isWalk ? "Да" : "Нет") + ", "
+                + "Умеет плавать? " + (isSwim ? "Да" : "Нет"));
+
+    }
+}
+ 
+
+public class Fish extends Animal{
+
+    {
+        isSwim (true);
+        type = "Рыба";
+    }
+
+    String squama;
+    boolean upStreamSwim;
+
+    public String getSquama() {
+        return "Тип чешуи: " + squama;
+    }
+
+    public void setSquama(String squama) {
+        this.squama = squama;
+    }
+
+    public boolean isUpStreamSwim() {
+        return upStreamSwim;
+    }
+
+    public void setUpStreamSwim(boolean upStreamSwim) {
+        this.upStreamSwim = upStreamSwim;
+    }
+
+    public Fish() {
+        super();
+    }
+
+    public void bul_bul() {
+        System.out.println("Bul-bul");
+    }
+
+    @Override
+    public void display() {
+        System.out.println("I am " + this.getClass().getSimpleName() + " and I have " + squama + " type of squama.\n"
+                + "Do you know that I can swim up stream? Of course, because it's " + isUpStreamSwim() + ".");
+        System.out.println("Тип животного: " + type + ", "
+                + "Имя животного: " + name + ", "
+                + "Возраст животного: " + age + ", "
+                + "Вес животного: " + weight + ", "
+                + "Умеет летать? " + (isFly ? "Да" : "Нет") + ", "
+                + "Умеет ходить? " + (isWalk ? "Да" : "Нет") + ", "
+                + "Умеет плавать? " + (isSwim ? "Да" : "Нет"));
+    }
+}
+ 
+
+public class Insect extends Animal {
+
+    {
+        isWalk (true);
+        type = "Насекомое";
+    }
+
+    int wingCount;
+    boolean likeJesus;
+
+    public int getWingCount() {
+        System.out.print("Количество крыльев: ");
+        return wingCount;
+    }
+
+    public void setWingCount(int wingCount) {
+        this.wingCount = wingCount;
+    }
+
+    public boolean isLikeJesus() {
+        return likeJesus;
+    }
+
+    public void setLikeJesus(boolean likeJesus) {
+        this.likeJesus = likeJesus;
+    }
+
+    public Insect() {
+        super();
+    }
+
+    public void ggggg() {
+        System.out.println("Ggggg");
+    }
+
+    @Override
+    public void display() {
+        System.out.println("I am " + this.getClass().getSimpleName() + " and I have " + wingCount + " wing(s)!\n"
+                + "Once upon a time my insect-friend said, that I can walk on water, so I tried and convinced that It's " + isLikeJesus() + ".");
+        System.out.println("Тип животного: " + type + ", "
+                + "Имя животного: " + name + ", "
+                + "Возраст животного: " + age + ", "
+                + "Вес животного: " + weight + ", "
+                + "Умеет летать? " + (isFly ? "Да" : "Нет") + ", "
+                + "Умеет ходить? " + (isWalk ? "Да" : "Нет") + ", "
+                + "Умеет плавать? " + (isSwim ? "Да" : "Нет"));
+    }
+}
+ 
 
 class Main{
     public static void main(String[] args) {
-        Animal tiger = new Animal("тигр", "Артём");
-        tiger.setAge(15);
-        tiger.setWeight(300.6);
-        tiger.isSwim(true);
-        tiger.isWalk(true);
-        tiger.isFly(false);
-        tiger.display();
-
         Animal duck = new Animal("Утка", "Утя", 3, 5.8, true, true, true);
-        duck.holiday(5);
-        duck.rename("Утя-Утя");
         duck.display();
-        System.out.println(duck.getAge());
-        System.out.println(duck.getName());
-        System.out.println(duck.getWeight());
-        System.out.println(duck.getType());
-        System.out.println(duck.isSwim());
-        System.out.println(duck.isWalk());
-        System.out.println(duck.isFly());
+
+        Bird b = new Bird();
+        b.setName("Bob");
+        b.setArea("На юге");
+        b.setWinterFly(false);
+        b.display();
+        //System.out.println(b.getArea());
+        //System.out.println(b.isWinterFly());
+        b.chirik_chirik();
+
+        System.out.println();
+
+        Fish f = new Fish();
+        f.setName("Сельдь");
+        f.setSquama("Крупная");
+        f.setUpStreamSwim(true);
+        f.display();
+        //System.out.println(f.getSquama());
+        //System.out.println(f.isUpStreamSwim());
+        f.bul_bul();
+
+        System.out.println();
+
+        Insect i = new Insect();
+        i.setName("Жук Жукыч");
+        i.setWingCount(4);
+        i.setLikeJesus(true);
+        i.display();
+        //System.out.println(i.getWingCount());
+        //System.out.println(i.isLikeJesus());
+        i.ggggg();
     }
 }
