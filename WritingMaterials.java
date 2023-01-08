@@ -24,9 +24,47 @@ draw() - Если предмет умеет рисовать, то выводи�
 
 Добавьте инкапсуляцию в класс WritingMaterials. Для каждого свойства в классе WritingMaterials должны быть свои методы get/set (для булевых значений не get, a is).
 
-*/
+Немного измените и перегрузите метод draw() в классе WritingMaterials (из предыдущего урока) таким образом:
 
-import java.util.Locale;
+draw() - Если предмет умеет рисовать, то выводит на экран фразу типа: "<Название> провёл линий: 1. Их цвет - <цвет>.", в противном случае выводит на экран фразу " <Название> не может ничего нарисовать.". (почти как и было)
+draw(int n) - Если предмет умеет рисовать, то выводит на экран фразу типа: "<Название> провёл линий: <n>. Их цвет - <цвет>.", в противном случае выводит на экран фразу " <Название> не может ничего нарисовать.". 
+draw(String color) - Если предмет умеет рисовать, то выводит на экран фразу типа: "<Название> провёл линий: 1. Их цвет - <color>.", в противном случае выводит на экран фразу " <Название> не может ничего нарисовать.". 
+draw(String color, int n) - Если предмет умеет рисовать, то выводит на экран фразу типа: "<Название> провёл линий: <n>. Их цвет - <color>.", в противном случае выводит на экран фразу " <Название> не может ничего нарисовать.". 
+
+Создайте три класса - наследника от класса WritingMaterials (из предыдущего урока): Pen, Ruler и Divider.
+
+Класс Pen:
+По умолчанию будем считать, что все ручки умеют рисовать.
+
+У ручек должны быть новые свойства: 
+
+countColor - количество цветов этой ручки (количество стержней, по умолчанию - 1)
+auto - ответ на вопрос, автоматическая она, или нет.
+Добавьте ручкам метод writeMyName, который выводит на экран строку, содержащую ваше имя.
+
+Класс Ruler:
+По умолчанию будем считать, что все линейки не умеют рисовать.
+
+У линеек должны быть новые свойства: 
+
+length - длина линейки
+wood - из дерева ли эта линейка
+Добавьте линейкам метод measure, который выводит на экран строку "Сейчас померяем длину".
+
+Класс Divider:
+По умолчанию будем считать, что все циркули умеют рисовать.
+
+У циркулей должны быть новые свойства: 
+
+dividerType - тип циркуля
+metal - сделан ли этот циркуль из металла
+Добавьте циркулям метод draw_circle, который выводит на экран строку "Нарисован круг".
+
+Переопределите у созданных вами классов наследников (Pen, Ruler и Divider.) метод display. 
+Перед выводом стандартной информации добавьте в начало вывода фразу "This is <название класса>". 
+Так же добавьте в метод display информацию о новых свойствах этого класса. 
+
+*/
 
 public class WritingMaterials {
 
@@ -124,7 +162,34 @@ public class WritingMaterials {
 
     public void draw() {
         if (draw) {
-            System.out.println(name + " провел(-а) линию. Ее(-го) цвет " + color + ".");
+            System.out.println(name + " провел(-а) линий: 1. Их цвет " + color + ".");
+        }
+        else {
+            System.out.println(name + " ничего не сможет нарисовать.");
+        }
+    }
+
+    public void draw(int n) {
+        if (draw) {
+            System.out.println(name + " провел(-а) линий: " + n + ". Их цвет " + color + ".");
+        }
+        else {
+            System.out.println(name + " ничего не сможет нарисовать.");
+        }
+    }
+
+    public void draw(String color) {
+        if (draw) {
+            System.out.println(name + " провел(-а) линий: 1. Их цвет " + color + ".");
+        }
+        else {
+            System.out.println(name + " ничего не сможет нарисовать.");
+        }
+    }
+
+    public void draw(String color, int n) {
+        if (draw) {
+            System.out.println(name + " провел(-а) линий: " + n + ". Их цвет " + color + ".");
         }
         else {
             System.out.println(name + " ничего не сможет нарисовать.");
@@ -132,31 +197,181 @@ public class WritingMaterials {
     }
 
     public void display() {
-        System.out.println("Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
+        System.out.println("Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price
+                + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
     }
 }
+ 
 
-class test{
-    public static void main(String[] args) {
-        WritingMaterials pen = new WritingMaterials();
-        pen.setName("ручка");
-        pen.setColor("Красный");
-        pen.setLength(11.6);
-        pen.setPrice(167);
-        pen.setDraw(true);
-        pen.display();
-        pen.draw();
-        pen.priceDown(10);
-        pen.display();
-        pen.priceUp(23);
-        pen.display();
-        pen.replaceRod("Синий");
-        pen.draw();
-        System.out.println(pen.getName());
-        System.out.println(pen.getColor());
-        System.out.println(pen.getLength());
-        System.out.println(pen.getPrice());
-        System.out.println(pen.isDraw());
+public class Pen extends WritingMaterials{
+
+    {
+        setDraw(true);
     }
 
+    int countColor = 1;
+    boolean auto;
+
+    public Pen() {
+        super();
+    }
+
+    public int getCountColor() {
+        System.out.print("Number of color(s): ");
+        return countColor;
+    }
+
+    public void setCountColor(int countColor) {
+        this.countColor = countColor;
+    }
+
+    public boolean isAuto() {
+        System.out.print("Can It write automatically? ");
+        return auto;
+    }
+
+    public void setAuto(boolean auto) {
+        this.auto = auto;
+    }
+
+    public void writeMyName() {
+        System.out.println("xParadize");
+    }
+
+    @Override
+    public void display() {
+        System.out.println("This is " + this.getClass().getSimpleName() + ". It has " + countColor + " color(s). The fact, that " +
+                "It's automatically thing is " + auto + ".");
+        System.out.println("Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price
+                + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
+    }
+}
+ 
+
+public class Ruler extends WritingMaterials {
+
+    {
+        setDraw(false);
+    }
+
+    int myLength;
+    boolean wood;
+
+    public Ruler() {
+        super();
+    }
+
+    public int getMyLength() {
+        System.out.print("Length is: ");
+        return myLength;
+    }
+
+    public void setMyLength(int myLength) {
+        this.myLength = myLength;
+    }
+
+    public boolean isWood() {
+        System.out.print("Is It made of wood? ");
+        return wood;
+    }
+
+    public void setWood(boolean wood) {
+        this.wood = wood;
+    }
+
+    public void measure() {
+        System.out.println("Сейчас померим длину");
+    }
+
+    @Override
+    public void display() {
+        System.out.println("This is " + this.getClass().getSimpleName() + ". It has " + length + " length. You know, that" +
+                " this thing made of wood? Of course, because it's " + wood);
+        System.out.println("Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price
+                + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
+    }
+}
+ 
+
+public class Divider extends WritingMaterials {
+
+    {
+        setDraw(true);
+    }
+
+    String dividerType;
+    boolean metal;
+
+    public Divider() {
+        super();
+    }
+
+    public String getDividerType() {
+        System.out.print("Divider type is: ");
+        return dividerType;
+    }
+
+    public void setDividerType(String dividerType) {
+        this.dividerType = dividerType;
+    }
+
+    public boolean isMetal() {
+        System.out.print("Is Divider made of metal? ");
+        return metal;
+    }
+
+    public void setMetal(boolean metal) {
+        this.metal = metal;
+    }
+
+    public void draw_circle() {
+        System.out.println("Нарисован круг");
+    }
+
+    @Override
+    public void display() {
+        System.out.println("This is " + this.getClass().getSimpleName() + ". It has " + dividerType + " type. Is It made of metal? " +
+                metal + "!");
+        System.out.println("Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price
+                + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
+    }
+}
+ 
+
+class Main{
+    public static void main(String[] args) {
+        WritingMaterials wm = new WritingMaterials("ручка", "Красный", 145, 15.6, true);
+        wm.display();
+
+        Pen p = new Pen();
+        p.setName("Паркер");
+        p.display();
+        p.setCountColor(2);
+        p.setAuto(false);
+        System.out.println(p.getCountColor());
+        System.out.println(p.isAuto());
+        p.writeMyName();
+
+        System.out.println();
+
+        Ruler r = new Ruler();
+        r.setName("Линейка");
+        r.display();
+        r.setMyLength(25);
+        r.setWood(true);
+        System.out.println(r.getMyLength());
+        System.out.println(r.isWood());
+        r.measure();
+
+        System.out.println();
+
+        Divider d = new Divider();
+        d.setName("Циркуль");
+        d.display();
+        d.setDividerType("С карандашом");
+        d.setMetal(true);
+        System.out.println(d.getDividerType());
+        System.out.println(d.isMetal());
+        d.draw_circle();
+    }
 }
