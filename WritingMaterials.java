@@ -1,5 +1,6 @@
-/* Опишите класс WritingMaterials. У класса WritingMaterials должны быть свойства:
+/* Опишите класс WritingMaterials. 
 
+У класса WritingMaterials должны быть свойства:
 name - название предмета (String)
 color - цвет, которым он пишет (String).
 price - его цена (int)
@@ -85,6 +86,9 @@ public class WritingMaterials {
     double length;
     boolean draw;
 
+    static final String description = WritingMaterials.class.getName();
+    static int count;
+
     public String getName() {
         return name;
     }
@@ -131,12 +135,12 @@ public class WritingMaterials {
         this.price = price;
         this.length = length;
         this.draw = draw;
+        count++;
     }
 
     public WritingMaterials(String name, String color) {
         this.name = name;
         this.color = color;
-
     }
 
     public WritingMaterials(String name, int price) {
@@ -154,7 +158,7 @@ public class WritingMaterials {
     }
 
     public WritingMaterials() {
-        //empty constructor
+        count++;
     }
 
     public void replaceRod(String newColor) {
@@ -212,13 +216,27 @@ public class WritingMaterials {
         System.out.println("Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price
                 + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
     }
+
+    public static void sayLoremIpsum() {
+        System.out.println("Lorem ipsum...");
+    }
+
+    public static void invokeCounter() {
+        System.out.println("Количество предметов: " + count);
+    }
+
+    public String toString() {
+        return "Номер предмета " + count + "Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price
+                + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".";
+    }
 }
- 
 
 public class Pen extends WritingMaterials{
 
     {
         setDraw(true);
+        name = "Богатырь";
+        color = "grey";
     }
 
     int countColor = 1;
@@ -258,12 +276,13 @@ public class Pen extends WritingMaterials{
                 + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
     }
 }
- 
 
-public class Ruler extends WritingMaterials {
+public final class Ruler extends WritingMaterials {
 
     {
         setDraw(false);
+        name = "Большой гребешок";
+        color = "blue";
     }
 
     int myLength;
@@ -303,12 +322,13 @@ public class Ruler extends WritingMaterials {
                 + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
     }
 }
- 
 
 public class Divider extends WritingMaterials {
 
     {
         setDraw(true);
+        name = "Длинные ножки";
+        color = "green";
     }
 
     String dividerType;
@@ -336,7 +356,7 @@ public class Divider extends WritingMaterials {
         this.metal = metal;
     }
 
-    public void draw_circle() {
+    public final void draw_circle() {
         System.out.println("Нарисован круг");
     }
 
@@ -346,44 +366,5 @@ public class Divider extends WritingMaterials {
                 metal + "!");
         System.out.println("Название: " + name + ", цвет: " + color + ", длина: " + length + ", цена: " + price
                 + ", умеет рисовать? " + (draw ? "Да" : "Нет") + ".");
-    }
-}
- 
-
-class Main{
-    public static void main(String[] args) {
-        WritingMaterials wm = new WritingMaterials("ручка", "Красный", 145, 15.6, true);
-        wm.display();
-
-        Pen p = new Pen();
-        p.setName("Паркер");
-        p.display();
-        p.setCountColor(2);
-        p.setAuto(false);
-        System.out.println(p.getCountColor());
-        System.out.println(p.isAuto());
-        p.writeMyName();
-
-        System.out.println();
-
-        Ruler r = new Ruler();
-        r.setName("Линейка");
-        r.display();
-        r.setMyLength(25);
-        r.setWood(true);
-        System.out.println(r.getMyLength());
-        System.out.println(r.isWood());
-        r.measure();
-
-        System.out.println();
-
-        Divider d = new Divider();
-        d.setName("Циркуль");
-        d.display();
-        d.setDividerType("С карандашом");
-        d.setMetal(true);
-        System.out.println(d.getDividerType());
-        System.out.println(d.isMetal());
-        d.draw_circle();
     }
 }
