@@ -81,6 +81,9 @@ public class Animal {
     double weight;
     boolean isFly, isWalk, isSwim;
 
+    static final String description = Animal.class.getName();
+    static int count;
+
     public Animal(String type, String name, int age, double weight, boolean isFly, boolean isWalk, boolean isSwim) {
         this.type = type;
         this.name = name;
@@ -89,10 +92,11 @@ public class Animal {
         this.isFly = isFly;
         this.isWalk = isWalk;
         this.isSwim = isSwim;
+        count++;
     }
 
     public Animal() {
-
+        count++;
     }
 
     public String getType() {
@@ -151,6 +155,11 @@ public class Animal {
         this.isSwim = isSwim;
     }
 
+    public static String getDescription() {
+        return description;
+    }
+
+
     public Animal(String type, String name) {
         this.type = type;
         this.name = name;
@@ -178,7 +187,7 @@ public class Animal {
         weight += (m * n);
     }
 
-    public void rename(String newName) {
+    public final void rename(String newName) {
         name = newName;
         System.out.println("Теперь нашего друга зовут " + newName);
     }
@@ -192,14 +201,33 @@ public class Animal {
                 + "Умеет ходить? " + (isWalk ? "Да" : "Нет") + ", "
                 + "Умеет плавать? " + (isSwim ? "Да" : "Нет"));
     }
+
+    public static void sayHello() {
+        System.out.println("Hello!");
+    }
+
+    public static void invokeCounter() {
+        System.out.println("Количество существ: " + count);
+    }
+
+    public String toString() {
+        return  "Номер животного: " + count + ", "
+                + "Тип животного: " + type + ", "
+                + "Имя животного: " + name + ", "
+                + "Возраст животного: " + age + ", "
+                + "Вес животного: " + weight + ", "
+                + "Умеет летать? " + (isFly ? "Да" : "Нет") + ", "
+                + "Умеет ходить? " + (isWalk ? "Да" : "Нет") + ", "
+                + "Умеет плавать? " + (isSwim ? "Да." : "Нет.");
+    }
 }
- 
 
 public class Bird extends Animal {
 
     {
         isFly (true);
         type = "Птица";
+        name = "Тимофей";
     }
 
     String area;
@@ -243,13 +271,13 @@ public class Bird extends Animal {
 
     }
 }
- 
 
-public class Fish extends Animal{
+public final class Fish extends Animal{
 
     {
         isSwim (true);
         type = "Рыба";
+        name = "Александр";
     }
 
     String squama;
@@ -292,13 +320,13 @@ public class Fish extends Animal{
                 + "Умеет плавать? " + (isSwim ? "Да" : "Нет"));
     }
 }
- 
 
 public class Insect extends Animal {
 
     {
         isWalk (true);
         type = "Насекомое";
+        name = "Максим";
     }
 
     int wingCount;
@@ -340,44 +368,5 @@ public class Insect extends Animal {
                 + "Умеет летать? " + (isFly ? "Да" : "Нет") + ", "
                 + "Умеет ходить? " + (isWalk ? "Да" : "Нет") + ", "
                 + "Умеет плавать? " + (isSwim ? "Да" : "Нет"));
-    }
-}
- 
-
-class Main{
-    public static void main(String[] args) {
-        Animal duck = new Animal("Утка", "Утя", 3, 5.8, true, true, true);
-        duck.display();
-
-        Bird b = new Bird();
-        b.setName("Bob");
-        b.setArea("На юге");
-        b.setWinterFly(false);
-        b.display();
-        //System.out.println(b.getArea());
-        //System.out.println(b.isWinterFly());
-        b.chirik_chirik();
-
-        System.out.println();
-
-        Fish f = new Fish();
-        f.setName("Сельдь");
-        f.setSquama("Крупная");
-        f.setUpStreamSwim(true);
-        f.display();
-        //System.out.println(f.getSquama());
-        //System.out.println(f.isUpStreamSwim());
-        f.bul_bul();
-
-        System.out.println();
-
-        Insect i = new Insect();
-        i.setName("Жук Жукыч");
-        i.setWingCount(4);
-        i.setLikeJesus(true);
-        i.display();
-        //System.out.println(i.getWingCount());
-        //System.out.println(i.isLikeJesus());
-        i.ggggg();
     }
 }
